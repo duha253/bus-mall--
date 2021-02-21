@@ -1,0 +1,29 @@
+h1{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+    text-align: center;
+    color: rgb(59, 58, 58);
+}
+
+
+
+img{
+    width: 400px;
+    height: 500;
+    margin: auto;
+}
+
+
+button{
+color:tan;
+background-color: rgb(3, 41, 41);
+padding: 35px;
+
+}
+
+li{
+    font-size: medium;
+    font-family: cursive;
+    color: rgb(37, 14, 14);
+    margin-left: 400px;
+}

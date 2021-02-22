@@ -16,3 +16,16 @@
 6. the newly added property to reflect if it was clicked.
 
 
+
+
+
+lab 12
+- Update  algorithm so that new products are generated 
+products are not duplicates from the immediate previous set.
+
+
+- how many times a product was clicked so that I can visually analyze the results.
+
+- ChartJS, display the vote totals and the number of times a product was viewed in a bar chart format.
+
+-The bar charts should only appear after all voting data has been collected.

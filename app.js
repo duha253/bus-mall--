@@ -3,7 +3,9 @@
 
 let maximumClicks = 25;
 let attempts = 0;
-
+let namesArr=[];
+let votesArray=[];
+let shownArray=[];
 let imag1Index ;
 let imag2Index;
 let imag3Index;
@@ -20,6 +22,7 @@ function busmall(name, src) {
   this.timesShown=0;
   // busmall.prototype.arrOfObjects.push(this);
   arrOfObjects.push(this);
+  namesArr.push(this.name);
 }
 
 new busmall('bag', 'images/bag.jpg');
@@ -69,9 +72,11 @@ function renderThreeRandomImages() {
 
 
   imag1Element.setAttribute('src', arrOfObjects[imag1Index].src);
+  arrOfObjects[imag1Index].timesShown++;
   imag2Element.setAttribute('src', arrOfObjects[imag2Index].src);
+  arrOfObjects[imag2Index].timesShown++;
   imag3Element.setAttribute('src', arrOfObjects[imag3Index].src);
-
+  arrOfObjects[imag3Index].timesShown++;
 }
 
 renderThreeRandomImages();
@@ -89,21 +94,16 @@ function handleClicking(event) {
   if (attempts <= maximumClicks) {
     if (event.target.id === 'imag1') {
       arrOfObjects[imag1Index].votes++;
-      arrOfObjects[imag1Index].timesShown++;
-      arrOfObjects[imag2Index].timesShown++;
-      arrOfObjects[imag3Index].timesShown++;
+
 
     } else if (event.target.id === 'imag2'){
       arrOfObjects[imag2Index].votes++;
-      arrOfObjects[imag1Index].timesShown++;
-      arrOfObjects[imag2Index].timesShown++;
-      arrOfObjects[imag3Index].timesShown++;
+
+
 
     } else {
       arrOfObjects[imag3Index].votes++;
-      arrOfObjects[imag1Index].timesShown++;
-      arrOfObjects[imag2Index].timesShown++;
-      arrOfObjects[imag3Index].timesShown++;
+
 
     }
     renderThreeRandomImages();
@@ -117,9 +117,17 @@ function handleClicking(event) {
       unorderdList.appendChild(li);
       li.textContent = `${arrOfObjects[i].name} had a ${arrOfObjects[i].votes} votes , And was seen ${arrOfObjects[i].timesShown} times.`;
     }
+    chartRender();
+
     imag1Element.removeEventListener('click', handleClicking);
     imag2Element.removeEventListener('click', handleClicking);
     imag2Element.removeEventListener('click', handleClicking);
+
+
+    for (let j = 0; j < arrOfObjects.length; j++) {
+      votesArray.push(arrOfObjects[j].votes);
+      shownArray.push(arrOfObjects[j].timesShown);
+    }
   }
 
 }
@@ -136,3 +144,34 @@ function handleClicking(event) {
 // let para = document.createElement('p');
 // showenRsult .appendChild(para);
 /// para.textContent = ' '
+
+
+
+function chartRender(){
+  var ctx = document.getElementById('myChart').getContext('2d');
+
+  var chart = new Chart (ctx, {
+    type: 'bar',
+    data: {
+      labels: namesArr,
+      datasets: [{
+        label: 'Buss-mall Votes',
+        backgroundColor: '#001f3f',
+        borderColor: 'rgb(255, 99, 132)',
+        data: votesArray,
+      },{
+        label: 'Buss-mall Displayed',
+        backgroundColor: '#f1d1d0',
+        borderColor:'rgb(155,100,30)',
+        data:shownArray,
+
+      }]
+    },
+
+
+    options: {}
+  });
+
+
+}
+

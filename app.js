@@ -13,6 +13,9 @@ let imag3Index;
 let imag1Element = document.getElementById('imag1');
 let imag2Element = document.getElementById('imag2');
 let imag3Element = document.getElementById('imag3');
+let ButtonElement = document.getElementById('');
+
+
 
 let arrOfObjects = [];
 function busmall(name, src) {
@@ -82,9 +85,11 @@ function renderThreeRandomImages() {
 renderThreeRandomImages();
 
 
+
 imag1Element.addEventListener('click', handleClicking);
 imag2Element.addEventListener('click', handleClicking);
 imag3Element.addEventListener('click', handleClicking);
+ButtonElement.addEventListener('click', handleClicking);
 
 
 
@@ -106,7 +111,9 @@ function handleClicking(event) {
 
 
     }
+    saveVote ();
     renderThreeRandomImages();
+
 
 
   } else {
@@ -122,21 +129,20 @@ function handleClicking(event) {
     imag1Element.removeEventListener('click', handleClicking);
     imag2Element.removeEventListener('click', handleClicking);
     imag2Element.removeEventListener('click', handleClicking);
+    ButtonElement.addEventListener('click', handleClicking);
 
 
     for (let j = 0; j < arrOfObjects.length; j++) {
       votesArray.push(arrOfObjects[j].votes);
       shownArray.push(arrOfObjects[j].timesShown);
     }
+
   }
 
 }
 
 
 
-//ButtonR.addEventListener = document.getElementById('showenRsult');
-//let button = document.getElementById('button');
-//button.addEventListener('click', Result);
 
 
 // eslint-disable-next-line no-inner-declarations
@@ -174,4 +180,23 @@ function chartRender(){
 
 
 }
+
+
+function saveVote (){
+  let saveVote = JSON.stringify(arrOfObjects);
+  localStorage.setItem('Allvote',saveVote);
+
+}
+function getvote(){
+  let getvote = localStorage.getItem('Allvote');
+  let newlist = JSON.parse(getvote);
+
+  if(newlist) {
+
+    arrOfObjects = newlist;
+  }
+
+}
+getvote();
+
 

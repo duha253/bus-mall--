@@ -29,3 +29,13 @@ products are not duplicates from the immediate previous set.
 - ChartJS, display the vote totals and the number of times a product was viewed in a bar chart format.
 
 -The bar charts should only appear after all voting data has been collected.
+
+
+
+lab 13
+
+-  local storage into the current application
+
+-  the data persists across both browser refreshes and resets
+
+- Store the products array into local storage as a formatted JSON string.

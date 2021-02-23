@@ -13,7 +13,7 @@ let imag3Index;
 let imag1Element = document.getElementById('imag1');
 let imag2Element = document.getElementById('imag2');
 let imag3Element = document.getElementById('imag3');
-let ButtonElement = document.getElementById('');
+let ButtonElement = document.getElementById('Button');
 
 
 
@@ -124,18 +124,18 @@ function handleClicking(event) {
       unorderdList.appendChild(li);
       li.textContent = `${arrOfObjects[i].name} had a ${arrOfObjects[i].votes} votes , And was seen ${arrOfObjects[i].timesShown} times.`;
     }
+
+
     chartRender();
-
-    imag1Element.removeEventListener('click', handleClicking);
-    imag2Element.removeEventListener('click', handleClicking);
-    imag2Element.removeEventListener('click', handleClicking);
-    ButtonElement.addEventListener('click', handleClicking);
-
 
     for (let j = 0; j < arrOfObjects.length; j++) {
       votesArray.push(arrOfObjects[j].votes);
       shownArray.push(arrOfObjects[j].timesShown);
     }
+    imag1Element.removeEventListener('click', handleClicking);
+    imag2Element.removeEventListener('click', handleClicking);
+    imag2Element.removeEventListener('click', handleClicking);
+    ButtonElement.addEventListener('click', handleClicking);
 
   }
 
@@ -195,7 +195,10 @@ function getvote(){
 
     arrOfObjects = newlist;
   }
-
+  else {
+    arrOfObjects=[];
+  }
+  renderThreeRandomImages();
 }
 getvote();
 

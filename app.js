@@ -13,7 +13,8 @@ let imag3Index;
 let imag1Element = document.getElementById('imag1');
 let imag2Element = document.getElementById('imag2');
 let imag3Element = document.getElementById('imag3');
-let ButtonElement = document.getElementById('Button');
+let ButtonElement = document.getElementById('ButtonR');
+
 
 
 
@@ -51,27 +52,36 @@ new busmall('wine-glass', 'images/wine-glass.jpg');
 
 
 
-
-
 function renderThreeRandomImages() {
+  let previouslyDisplayed = [imag1Index,imag2Index,imag3Index];
+
   imag1Index = generateRandomIndex();
   imag2Index = generateRandomIndex();
   imag3Index = generateRandomIndex();
 
 
-  function generateRandomIndex() {
-
-    let randomIndex = Math.floor(Math.random() * arrOfObjects.length);
-    return randomIndex;
+  let same = true;
+  while (same) {
+    if (previouslyDisplayed.includes(imag1Index)){
+      imag1Index=generateRandomIndex();
+    }
+    else if(imag1Index===imag2Index || previouslyDisplayed.includes(imag1Index)){
+      imag2Index=generateRandomIndex();
+    }
+    else if(imag3Index===imag1Index ||imag3Index===imag2Index|| previouslyDisplayed.includes(imag3Index))
+    {imag3Index=generateRandomIndex();
+    }
+    else { same=false;}
   }
 
-  let same = true;
+  /*let same = true;
   while (same) {
     if (imag1Index===imag2Index) {imag2Index=generateRandomIndex();}
     else if(imag1Index===imag3Index) {imag3Index=generateRandomIndex();}
     else if(imag2Index===imag3Index) {imag3Index=generateRandomIndex();}
     else { same=false;}
-  }
+  }*/
+
 
 
   imag1Element.setAttribute('src', arrOfObjects[imag1Index].src);
@@ -84,31 +94,32 @@ function renderThreeRandomImages() {
 
 renderThreeRandomImages();
 
+function generateRandomIndex() {
+
+  let randomIndex = Math.floor(Math.random() * arrOfObjects.length);
+  return randomIndex;
+}
 
 
 imag1Element.addEventListener('click', handleClicking);
 imag2Element.addEventListener('click', handleClicking);
 imag3Element.addEventListener('click', handleClicking);
-ButtonElement.addEventListener('click', handleClicking);
+
 
 
 
 function handleClicking(event) {
-
+//if we have attempt or not
   attempts++;
   if (attempts <= maximumClicks) {
     if (event.target.id === 'imag1') {
       arrOfObjects[imag1Index].votes++;
 
-
     } else if (event.target.id === 'imag2'){
       arrOfObjects[imag2Index].votes++;
 
-
-
     } else {
       arrOfObjects[imag3Index].votes++;
-
 
     }
     saveVote ();
@@ -117,41 +128,34 @@ function handleClicking(event) {
 
 
   } else {
-    let unorderdList = document.getElementById('unList');
-    let li;
-    for (let i = 0; i < arrOfObjects.length; i++) {
-      li = document.createElement('li');
-      unorderdList.appendChild(li);
-      li.textContent = `${arrOfObjects[i].name} had a ${arrOfObjects[i].votes} votes , And was seen ${arrOfObjects[i].timesShown} times.`;
-    }
 
-
-    chartRender();
+    imag1Element.removeEventListener('click', handleClicking);
+    imag2Element.removeEventListener('click', handleClicking);
+    imag2Element.removeEventListener('click', handleClicking);
 
     for (let j = 0; j < arrOfObjects.length; j++) {
       votesArray.push(arrOfObjects[j].votes);
       shownArray.push(arrOfObjects[j].timesShown);
+      //namesArr.push(arrOfObjects[j].name);
+
     }
-    imag1Element.removeEventListener('click', handleClicking);
-    imag2Element.removeEventListener('click', handleClicking);
-    imag2Element.removeEventListener('click', handleClicking);
-    ButtonElement.addEventListener('click', handleClicking);
-
   }
-
 }
 
+ButtonElement.addEventListener('click',handleShowing);
 
 
-
-
-// eslint-disable-next-line no-inner-declarations
-//function Result(){
-// let para = document.createElement('p');
-// showenRsult .appendChild(para);
-/// para.textContent = ' '
-
-
+function handleShowing(){
+  let unorderdList = document.getElementById('unList');
+  let li;
+  for (let i = 0; i < arrOfObjects.length; i++) {
+    li = document.createElement('li');
+    unorderdList.appendChild(li);
+    li.textContent = `${arrOfObjects[i].name} had a ${arrOfObjects[i].votes} votes , And was seen ${arrOfObjects[i].timesShown} times.`;
+  }
+  chartRender();
+  ButtonElement.removeEventListener('click',handleShowing);
+}
 
 function chartRender(){
   var ctx = document.getElementById('myChart').getContext('2d');
@@ -178,27 +182,24 @@ function chartRender(){
     options: {}
   });
 
-
 }
 
-
 function saveVote (){
-  let saveVote = JSON.stringify(arrOfObjects);
-  localStorage.setItem('Allvote',saveVote);
+  let Vote = JSON.stringify(arrOfObjects);
+  localStorage.setItem('Allvote',Vote);
 
 }
 function getvote(){
   let getvote = localStorage.getItem('Allvote');
   let newlist = JSON.parse(getvote);
 
-  if(newlist) {
 
+  if(newlist) //or if(newlist  not==null)
+  {
     arrOfObjects = newlist;
   }
-  else {
-    arrOfObjects=[];
-  }
-  renderThreeRandomImages();
+
+  //renderThreeRandomImages();
 }
 getvote();
 

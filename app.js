@@ -16,8 +16,6 @@ let imag3Element = document.getElementById('imag3');
 let ButtonElement = document.getElementById('ButtonR');
 
 
-
-
 let arrOfObjects = [];
 function busmall(name, src) {
   this.name = name;
@@ -120,12 +118,9 @@ function handleClicking(event) {
 
     } else {
       arrOfObjects[imag3Index].votes++;
-
     }
     saveVote ();
     renderThreeRandomImages();
-
-
 
   } else {
 
@@ -187,7 +182,6 @@ function chartRender(){
 function saveVote (){
   let Vote = JSON.stringify(arrOfObjects);
   localStorage.setItem('Allvote',Vote);
-
 }
 function getvote(){
   let getvote = localStorage.getItem('Allvote');

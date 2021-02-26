@@ -16,8 +16,6 @@ let imag3Element = document.getElementById('imag3');
 let ButtonElement = document.getElementById('ButtonR');
 
 
-
-
 let arrOfObjects = [];
 function busmall(name, src) {
   this.name = name;

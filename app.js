@@ -123,8 +123,6 @@ function handleClicking(event) {
     saveVote ();
     renderThreeRandomImages();
 
-
-
   } else {
 
     imag1Element.removeEventListener('click', handleClicking);

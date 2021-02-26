@@ -118,7 +118,6 @@ function handleClicking(event) {
 
     } else {
       arrOfObjects[imag3Index].votes++;
-
     }
     saveVote ();
     renderThreeRandomImages();
@@ -183,7 +182,6 @@ function chartRender(){
 function saveVote (){
   let Vote = JSON.stringify(arrOfObjects);
   localStorage.setItem('Allvote',Vote);
-
 }
 function getvote(){
   let getvote = localStorage.getItem('Allvote');
